@@ -55,6 +55,25 @@
         window.onload = function () {
             addPurposeItem();
         }
+
+        window.onload = function () {
+            const formData = JSON.parse('{{ form_data | tojson | safe }}');
+            const purposes = formData ? formData.purpose_items : [];
+
+            if (purposes.length > 0) {
+                purposes.forEach(item => addPurposeItem(item));
+            } else {
+                addPurposeItem();
+            }
+
+            if (formData) {
+                document.getElementsByName('input_desc')[0].value = formData.input_desc || '';
+                document.getElementsByName('output_desc')[0].value = formData.output_desc || '';
+                document.getElementsByName('language')[0].value = formData.language || 'Python';
+                document.getElementsByName('need_tests')[0].value = formData.need_tests || '否';
+                document.getElementsByName('constraints')[0].value = formData.constraints || '';
+            }
+        }
     </script>
 </head>
 <body>

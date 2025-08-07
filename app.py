@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request , session
 
 app = Flask(__name__)
+app.secret_key = 'your-secret-key'  # ⚠️ 實際使用請改為安全的密鑰
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -12,6 +13,16 @@ def index():
         language = request.form.get('language')
         need_tests = request.form.get('need_tests')
         constraints = request.form.get('constraints')
+
+        # 儲存到 session
+        session['form_data'] = {
+            'purpose_items': purpose_items,
+            'input_desc': input_desc,
+            'output_desc': output_desc,
+            'language': language,
+            'need_tests': need_tests,
+            'constraints': constraints
+        }
 
         # 組合條列式用途描述，加上數字標號
         purpose = "\n".join([f"{i + 1}. {item}" for i, item in enumerate(purpose_items)])
@@ -37,7 +48,9 @@ def index():
 
         return render_template('result.html', prompt=prompt)
 
-    return render_template('form.html')
+    # GET request: 檢查是否有舊資料要還原
+    form_data = session.get('form_data', None)
+    return render_template('form.html', form_data=form_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
