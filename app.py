@@ -5,12 +5,16 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        purpose = request.form.get('purpose')
+        # getlist 會抓到多個同名欄位 (checkbox, list 等)
+        purpose_items = request.form.getlist('purpose_item')
         input_desc = request.form.get('input_desc')
         output_desc = request.form.get('output_desc')
         language = request.form.get('language')
         need_tests = request.form.get('need_tests')
         constraints = request.form.get('constraints')
+
+        # 組合條列式用途描述，加上數字標號
+        purpose = "\n".join([f"{i + 1}. {item}" for i, item in enumerate(purpose_items)])
 
         prompt = f"""請幫我用 {language} 寫一段程式，功能如下：
 

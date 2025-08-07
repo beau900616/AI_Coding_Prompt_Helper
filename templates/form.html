@@ -3,18 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <title>生成程式需求表單</title>
+    <style>
+        .purpose-item {
+            margin-bottom: 10px;
+        }
+        .purpose-textarea {
+            width: 500px;
+            height: 60px;
+            resize: vertical;
+        }
+    </style>
+    <script>
+        function updatePurposePlaceholders() {
+            const items = document.querySelectorAll('.purpose-item textarea');
+            items.forEach((textarea, index) => {
+                textarea.placeholder = `用途項目 ${index + 1}`;
+            });
+        }
+
+        function addPurposeItem() {
+            const container = document.getElementById("purpose-list");
+
+            const wrapper = document.createElement("div");
+            wrapper.className = "purpose-item";
+
+            const textarea = document.createElement("textarea");
+            textarea.name = "purpose_item";
+            textarea.className = "purpose-textarea";
+            textarea.required = true;
+
+            const deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.textContent = "刪除";
+            deleteButton.onclick = function () {
+                const allItems = container.querySelectorAll('.purpose-item');
+                if (allItems.length > 1) {
+                    container.removeChild(wrapper);
+                    updatePurposePlaceholders();//重新編號
+                } else {
+                    alert("至少需要一個用途項目！");
+                }
+            };
+
+            wrapper.appendChild(textarea);
+            wrapper.appendChild(deleteButton);
+            container.appendChild(wrapper);
+            updatePurposePlaceholders();//重新編號
+        }
+
+        // 預設初始化一個用途項目
+        window.onload = function () {
+            addPurposeItem();
+        }
+    </script>
 </head>
 <body>
     <h1>請輸入程式功能需求</h1>
     <form method="post">
-        <label>用途描述：</label><br>
-        <textarea name="purpose" rows="4" cols="50" required></textarea><br><br>
+        <label>用途描述（條列式）：</label><br>
+        <div id="purpose-list"></div>
+        <button type="button" onclick="addPurposeItem()">新增一行用途</button><br><br>
 
         <label>輸入資料說明：</label><br>
-        <textarea name="input_desc" rows="3" cols="50"></textarea><br><br>
+        <textarea name="input_desc" class="purpose-textarea"></textarea><br><br>
 
         <label>輸出資料說明：</label><br>
-        <textarea name="output_desc" rows="3" cols="50"></textarea><br><br>
+        <textarea name="output_desc" class="purpose-textarea"></textarea><br><br>
 
         <label>使用語言：</label><br>
         <input type="text" name="language" value="Python" required><br><br>
@@ -26,7 +80,7 @@
         </select><br><br>
 
         <label>特殊限制或其他需求：</label><br>
-        <textarea name="constraints" rows="3" cols="50"></textarea><br><br>
+        <textarea name="constraints" class="purpose-textarea"></textarea><br><br>
 
         <button type="submit">生成 ChatGPT 提示</button>
     </form>
