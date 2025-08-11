@@ -79,25 +79,33 @@
 <body>
     <h1>請輸入程式功能需求</h1>
     <form method="post">
-        <label>用途描述（條列式）：</label><br>
+        <h2>前言</h2>
+        <label>文件目的：</label><br>
         <div id="purpose-list"></div>
         <button type="button" onclick="addPurposeItem()">新增一行用途</button><br><br>
 
-        <label>輸入資料說明：</label><br>
-        <textarea name="input_desc" class="purpose-textarea"></textarea><br><br>
+        <label>名詞解釋：</label><br>
+        <textarea name="terms_and_definitions" class="purpose-textarea"></textarea><br><br>
 
-        <label>輸出資料說明：</label><br>
-        <textarea name="output_desc" class="purpose-textarea"></textarea><br><br>
+        <label>參考資料：</label><br>
+        <textarea name="references" class="purpose-textarea"></textarea><br><br>
 
+        <h2>軟體設計規劃</h2>
         <label>使用語言：</label><br>
         <input type="text" name="language" value="Python" required><br><br>
 
-        <label>是否需要單元測試：</label><br>
-        <select name="need_tests">
-            <option value="是">是</option>
-            <option value="否">否</option>
-        </select><br><br>
+        <label>設計方法與工具：</label><br>
+        <textarea name="design_method" class="purpose-textarea"></textarea><br><br>
 
+        <label>系統架構：</label><br>
+        <textarea name="system_structure" class="purpose-textarea"></textarea><br><br>
+
+        <label>輸入資料型態說明：</label><br>
+        <textarea name="input_data_explain" class="purpose-textarea"></textarea><br><br>
+
+        <label>輸出資料型態說明：</label><br>
+        <textarea name="output_data_explain" class="purpose-textarea"></textarea><br><br>
+        
         <label>特殊限制或其他需求：</label><br>
         <textarea name="constraints" class="purpose-textarea"></textarea><br><br>
 
