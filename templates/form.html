@@ -53,10 +53,7 @@
 
         // 預設初始化一個用途項目
         window.onload = function () {
-            addPurposeItem();
-        }
-
-        window.onload = function () {
+            addPurposeItem()
             const formData = JSON.parse('{{ form_data | tojson | safe }}');
             const purposes = formData ? formData.purpose_items : [];
 
@@ -66,11 +63,15 @@
                 addPurposeItem();
             }
 
+            // 回填其他欄位
             if (formData) {
-                document.getElementsByName('input_desc')[0].value = formData.input_desc || '';
-                document.getElementsByName('output_desc')[0].value = formData.output_desc || '';
+                document.getElementsByName('terms_and_definitions')[0].value = formData.terms_and_definitions || '';
+                document.getElementsByName('references')[0].value = formData.references || '';
                 document.getElementsByName('language')[0].value = formData.language || 'Python';
-                document.getElementsByName('need_tests')[0].value = formData.need_tests || '否';
+                document.getElementsByName('design_method')[0].value = formData.design_method || '';
+                document.getElementsByName('system_structure')[0].value = formData.system_structure || '';
+                document.getElementsByName('input_data_explain')[0].value = formData.input_data_explain || '';
+                document.getElementsByName('output_data_explain')[0].value = formData.output_data_explain || '';
                 document.getElementsByName('constraints')[0].value = formData.constraints || '';
             }
         }
