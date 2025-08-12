@@ -11,6 +11,7 @@ AI_Coding_Prompt_Helper 是一個基於 **Python Flask 後端** 與 **HTML 前�
 - **Flask 後端與 HTML 前端分離設計，易於維護與擴展**
 
 ## 📂 專案結構
+```bash
 AI_Coding_Prompt_Helper/
 │
 ├── app.py # Flask 後端程式
@@ -19,6 +20,7 @@ AI_Coding_Prompt_Helper/
 │ └── result.html # 顯示生成 Prompt 結果
 ├── static/ # （可放 CSS/JS 資源）
 └── README.md # 專案說明文件
+```
 
 ## ⚙️ 安裝與執行
 
